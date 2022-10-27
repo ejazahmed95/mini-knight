@@ -1,0 +1,3 @@
+[submodule "Assets/EAUnity"]
+	path = Assets/EAUnity
+	url = git@github.com:ejazahmed95/EAUnity.git
