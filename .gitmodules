@@ -1,3 +1,6 @@
 [submodule "Assets/EAUnity"]
 	path = Assets/EAUnity
 	url = git@github.com:ejazahmed95/EAUnity.git
+[submodule "Assets/External_Packages"]
+	path = Assets/External_Packages
+	url = git@github.com:ejazahmed95/unity-external-packages.git
