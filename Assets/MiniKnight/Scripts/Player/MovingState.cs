@@ -21,20 +21,24 @@ namespace MiniKnight.Player {
             }
 
             public override CharacterStateBase FixedUpdate() {
+                UpdateChecks();
+                
+                // if (controller.stateData.IsGrounded == false) {
+                //     return controller.AllStates.FallingState;
+                // } 
+                
                 var velocity = controller._rigidbody.velocity;
-                var data = controller.stateData;
+                ref var data = ref controller.stateData;
 
                 if (data.Movement == 0) {
                     //Log.Debug($"Data Velocity = {data.velocity}; RigidBody Velocity = {velocity}; Magnitude = {data.velocity.x.ToString()}");
                     if (velocity.magnitude < 0.01) {
-                        controller._animator.SetFloat(Speed, 0);
-                        controller._rigidbody.velocity = Vector2.zero;
+                        StopMovement();
                         return controller.AllStates.IdleState;
                     }
                 }
-                
-                var targetVel = new Vector2(controller.stateData.Movement * controller.stateData.MoveSpeed, velocity.y);
-                controller._rigidbody.velocity = Vector2.SmoothDamp(velocity, targetVel, ref controller.stateData.velocity, data.MovementSmoothing);
+
+                MoveCharacterHorizontal();
                 return null;
             }
 
@@ -43,9 +47,8 @@ namespace MiniKnight.Player {
                     case InputCommandType.MOVE:
                         SetPlayerMovement(inputCommandData.ValueFloat);
                         return null;
-                        break;
                     case InputCommandType.JUMP:
-                        break;
+                        return controller.AllStates.JumpingState;
                     case InputCommandType.ATTACK:
                         break;
                     case InputCommandType.SHOOT:

@@ -1,5 +1,4 @@
 ﻿
-using System;
 
 namespace MiniKnight.Player {
     partial class CharacterController2D {
@@ -10,9 +9,28 @@ namespace MiniKnight.Player {
 
             public override bool BeginState(out CharacterStateBase alternateState) {
                 base.BeginState(out alternateState);
+                UpdateChecks();
+                if (controller.stateData.IsGrounded == false) {
+                    alternateState = controller.AllStates.FallingState;
+                    return false;
+                } 
+                if (controller.stateData.Movement != 0 || controller._rigidbody.velocity.magnitude > 0.01) {
+                    alternateState = controller.AllStates.MovingState;
+                    return false;
+                }
                 controller.stateData.ActiveStateText = "Idling";
                 controller._debugger.SetStateText("Idling");
+
+                StopMovement();
                 return true;
+            }
+
+            public override CharacterStateBase FixedUpdate() {
+                //UpdateChecks();
+                // if (controller.stateData.IsGrounded == false) {
+                //     return controller.AllStates.FallingState;
+                // } 
+                return null;
             }
 
             public override CharacterStateBase HandleInput(InputCommandData inputCommandData) {
@@ -20,9 +38,8 @@ namespace MiniKnight.Player {
                     case InputCommandType.MOVE:
                         SetPlayerMovement(inputCommandData.ValueFloat);
                         return controller.AllStates.MovingState;
-                        break;
                     case InputCommandType.JUMP:
-                        break;
+                        return controller.AllStates.JumpingState;
                     case InputCommandType.ATTACK:
                         break;
                     case InputCommandType.SHOOT:

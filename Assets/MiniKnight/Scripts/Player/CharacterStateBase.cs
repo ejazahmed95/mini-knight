@@ -1,8 +1,12 @@
 ﻿using System;
+using RangerRPG.Core;
 using UnityEngine;
 
 namespace MiniKnight.Player {
     public partial class CharacterController2D {
+        private static readonly int IsJumping = Animator.StringToHash("IsJumping");
+        private static readonly int JumpUp = Animator.StringToHash("JumpUp");
+        
         public abstract class CharacterStateBase {
             protected CharacterController2D controller;
 
@@ -31,8 +35,18 @@ namespace MiniKnight.Player {
 
 
             #region Sandbox Methods to be used by Subclass States
-            protected void MoveCharacterHorizontal(float valueFloat) {
-                
+            protected void MoveCharacterHorizontal() {
+                var velocity = controller._rigidbody.velocity;
+                ref var data = ref controller.stateData;
+                controller._animator.SetFloat(Speed, Math.Abs(data.Movement));
+                var targetVel = new Vector2(data.Movement * data.MoveSpeed, velocity.y);
+                controller._rigidbody.velocity = Vector2.SmoothDamp(velocity, targetVel, ref controller.stateData.velocity, data.MovementSmoothing);
+            }
+
+            protected void StopMovement() {
+                controller._animator.SetFloat(Speed, 0);
+                controller._rigidbody.velocity = Vector2.zero;
+                controller.stateData.velocity = Vector2.zero;
             }
 
             protected void SetPlayerMovement(float valueFloat) {
@@ -47,7 +61,32 @@ namespace MiniKnight.Player {
                         break;
                 }
             }
-            
+
+            protected void UpdateChecks() {
+                ref var data = ref controller.stateData;
+                data.IsGrounded = false;
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(data.GroundCheck.position, data.GroundedRadius, data.WhatIsGround);
+                foreach (var collider in colliders) {
+                    if (collider.gameObject != controller.gameObject) {
+                        data.IsDoubleJumping = false;
+                        data.IsGrounded = true;
+                        //Log.Info($"Ground Collision with {collider.gameObject.name}; Position = {data.GroundCheck.position}; Radius = {data.GroundedRadius}");
+                        return;
+                        //return;
+                    }
+                    // if (!wasGrounded )
+                    // {
+                    //     OnLandEvent.Invoke();
+                    //     if (!m_IsWall && !isDashing) 
+                    //         particleJumpDown.Play();
+                    //     canDoubleJump = true;
+                    //     if (m_Rigidbody2D.velocity.y < 0f)
+                    //         limitVelOnWallJump = false;
+                    // }
+                }
+                //Log.Info("In Air!!!");
+            }
+
             private void Flip() {
                 controller.stateData.IsFacingLeft = !controller.stateData.IsFacingLeft;
 

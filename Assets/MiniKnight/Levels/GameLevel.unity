@@ -3342,9 +3342,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7842644868355728423, guid: ec979bbb372ecb2468fc1945fef85dc9, type: 3}
   m_PrefabInstance: {fileID: 7841417189650881578}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &4291727286006917 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7844549472252242095, guid: ec979bbb372ecb2468fc1945fef85dc9, type: 3}
+  m_PrefabInstance: {fileID: 7841417189650881578}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4660076185514887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7837038730213961645, guid: ec979bbb372ecb2468fc1945fef85dc9, type: 3}
+  m_PrefabInstance: {fileID: 7841417189650881578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4986330607085369 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7837380910643755795, guid: ec979bbb372ecb2468fc1945fef85dc9, type: 3}
+  m_PrefabInstance: {fileID: 7841417189650881578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &198584872285129661 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7931908222323660695, guid: ec979bbb372ecb2468fc1945fef85dc9, type: 3}
+  m_PrefabInstance: {fileID: 7841417189650881578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &198967111582693655 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7930998286198465853, guid: ec979bbb372ecb2468fc1945fef85dc9, type: 3}
   m_PrefabInstance: {fileID: 7841417189650881578}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &212971026318327972
@@ -3410,19 +3430,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateData:
-    JumpForce: 400
+    JumpForce: 850
     MoveSpeed: 5
     MovementSmoothing: 0.05
     WhatIsGround:
       serializedVersion: 2
-      m_Bits: 0
-    AirControl: 0
+      m_Bits: 1
+    AirControl: 1
+    GroundedRadius: 0.02
+    IsGrounded: 1
+    CanDoubleJump: 1
+    CanWallGrab: 0
+    CanDash: 0
+    JumpUpParticles: {fileID: 198584872285129661}
+    JumpDownParticles: {fileID: 198967111582693655}
     ActiveStateText: 
     Movement: 0
+    IsFacingLeft: 0
+    IsDoubleJumping: 0
     InAir: 0
     velocity: {x: 0, y: 0}
-    GroundCheck: {fileID: 0}
-    WallCheck: {fileID: 0}
+    GroundCheck: {fileID: 4291727286006917}
+    WallCheck: {fileID: 4986330607085369}
 --- !u!1001 &5207711623103834680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3595,6 +3624,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420028}
+    - target: {fileID: 7932865591830593953, guid: ec979bbb372ecb2468fc1945fef85dc9, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7874433529936559109, guid: ec979bbb372ecb2468fc1945fef85dc9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ec979bbb372ecb2468fc1945fef85dc9, type: 3}

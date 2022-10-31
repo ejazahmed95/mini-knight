@@ -1,5 +1,6 @@
 ﻿using MiniKnight.Debug;
 using RangerRPG.Core;
+using RangerRPG.Utility;
 using UnityEngine;
 
 namespace MiniKnight.Player {
@@ -59,6 +60,7 @@ namespace MiniKnight.Player {
         }
 
         private void GoToState(CharacterStateBase newState) {
+            Log.Info($"Ending State = {stateData.ActiveStateText}".Color("red"));
             currentState.EndState();
             
             CharacterStateBase nextState = newState;
@@ -66,11 +68,13 @@ namespace MiniKnight.Player {
                 currentState = nextState;
                 if (currentState.BeginState(out nextState)) {
                     _debugger.SetStateText(stateData.ActiveStateText);
+                    Log.Info($"Starting State = {stateData.ActiveStateText}".Color("green"));
                     return;
                 }
             }
             currentState = AllStates.IdleState;
             currentState.BeginState(out _);
+            Log.Info($"Starting State = {stateData.ActiveStateText}".Color("green"));
         }
 
         public struct CharacterStates {

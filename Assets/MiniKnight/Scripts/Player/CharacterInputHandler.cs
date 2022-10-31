@@ -29,7 +29,7 @@ namespace MiniKnight.Player {
 
         private void OnMoveAction(InputAction.CallbackContext obj) {
             var moveValue = obj.ReadValue<float>();
-            
+            Log.Debug($"Move Value = {moveValue.ToString()}, Value Type = {obj.valueType}");
             inputEvent.Invoke(new InputCommandData{Type = InputCommandType.MOVE, ValueFloat = moveValue});
         }
         
