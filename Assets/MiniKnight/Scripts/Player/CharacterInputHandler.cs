@@ -12,7 +12,7 @@ namespace MiniKnight.Player {
         [field:SerializeField] public InputActionReference ShootAction;
         [field:SerializeField] public InputActionReference DashAction;
 
-        [SerializeField] private UnityEvent<InputCommandData> inputEvent = new();
+        [field:SerializeField] public UnityEvent<InputCommandData> inputEvent = new();
 
         private void Start() {
             MoveAction.action.performed += OnMoveAction;

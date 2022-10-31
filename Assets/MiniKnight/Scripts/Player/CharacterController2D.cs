@@ -1,13 +1,30 @@
-﻿using RangerRPG.Core;
+﻿using MiniKnight.Debug;
+using RangerRPG.Core;
 using UnityEngine;
 
 namespace MiniKnight.Player {
-    public class CharacterController2D : MonoBehaviour {
+    public partial class CharacterController2D : MonoBehaviour {
+
+        [SerializeField] private PlayerStateData stateData;
+
+        private Rigidbody2D _rigidbody;
+        
+        private Animator _animator;
         private CharacterStateBase currentState;
         private CharacterInputHandler input;
-        public CharacterStates AllStates;
-        
+        private CharacterStates AllStates;
+        private UIDebugger _debugger;
+
         private void Awake() {
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _animator = GetComponent<Animator>();
+        }
+
+        private void Start() {
+
+            input = DI.Get<CharacterInputHandler>();
+            _debugger = DI.Get<UIDebugger>();
+            
             AllStates = new CharacterStates {
                 IdleState = new IdleState(this),
                 MovingState = new MovingState(this),
@@ -15,14 +32,23 @@ namespace MiniKnight.Player {
                 FallingState = new FallingState(this)
             };
             currentState = AllStates.IdleState;
-        }
-
-        private void Start() {
-            input = DI.Get<CharacterInputHandler>();
+            currentState.BeginState(out _);
+            
+            input.inputEvent.AddListener(HandleInput);
         }
 
         void HandleInput(InputCommandData data) {
-            currentState.HandleInput(data);
+            var state = currentState.HandleInput(data);
+            if (state != null) {
+                GoToState(state);
+            }
+        }
+
+        private void FixedUpdate() {
+            var state = currentState.FixedUpdate();
+            if (state != null) {
+                GoToState(state);
+            }
         }
 
         private void Update() {
@@ -34,8 +60,17 @@ namespace MiniKnight.Player {
 
         private void GoToState(CharacterStateBase newState) {
             currentState.EndState();
-            currentState = newState;
-            currentState.BeginState();
+            
+            CharacterStateBase nextState = newState;
+            for (int i = 0; i < 5; i++) { // Max Chaining for beginning states
+                currentState = nextState;
+                if (currentState.BeginState(out nextState)) {
+                    _debugger.SetStateText(stateData.ActiveStateText);
+                    return;
+                }
+            }
+            currentState = AllStates.IdleState;
+            currentState.BeginState(out _);
         }
 
         public struct CharacterStates {
@@ -45,26 +80,6 @@ namespace MiniKnight.Player {
             public FallingState FallingState;
         }
         
-        public abstract class CharacterStateBase {
-            protected CharacterController2D controller;
-
-            public CharacterStateBase(CharacterController2D controller) {
-                this.controller = controller;
-            }
-            
-            public bool BeginState() {
-                return true;
-            }
-
-            public bool EndState() {
-                return true;
-            }
-
-            public CharacterStateBase Update(float deltaTime) {
-                return null;
-            }
-
-            public abstract void HandleInput(InputCommandData inputCommandData);
-        }
+        
     }
 }
