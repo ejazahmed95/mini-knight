@@ -8,5 +8,8 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/MiniKnight/Levels/GameLevel.unity
+    guid: 54cb76574ee7fbf4f82bdc3f2b33e3b1
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: e9b3bb0872eace54c96c17203ce4d733, type: 2}

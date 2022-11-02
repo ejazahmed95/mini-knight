@@ -56,9 +56,13 @@ namespace MiniKnight.Player {
         
         private void OnDash(InputAction.CallbackContext obj) {
             var jumpVal = obj.ReadValueAsButton();
-            Log.Trace($"Dash Value = {jumpVal.ToString()}, Value Type = {obj.valueType}");
+            Log.Info($"Dash Value = {jumpVal.ToString()}, Value Type = {obj.valueType}");
             
             inputEvent.Invoke(new InputCommandData{Type = InputCommandType.DASH, ValueBool = jumpVal});
+        }
+
+        public void EnableAction(InputActionReference actionReference) {
+            actionReference.action.Enable();
         }
     }
 }

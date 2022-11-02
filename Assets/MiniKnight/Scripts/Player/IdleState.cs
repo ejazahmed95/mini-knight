@@ -13,7 +13,7 @@ namespace MiniKnight.Player {
                 if (controller.stateData.IsGrounded == false) {
                     alternateState = controller.AllStates.FallingState;
                     return false;
-                } 
+                }
                 if (controller.stateData.Movement != 0 || controller._rigidbody.velocity.magnitude > 0.01) {
                     alternateState = controller.AllStates.MovingState;
                     return false;
@@ -41,7 +41,7 @@ namespace MiniKnight.Player {
                     case InputCommandType.JUMP:
                         return controller.AllStates.JumpingState;
                     case InputCommandType.ATTACK:
-                        break;
+                        return controller.AllStates.AttackingState;
                     case InputCommandType.SHOOT:
                         break;
                     case InputCommandType.DASH:

@@ -29,6 +29,9 @@ namespace MiniKnight.Player {
                     case InputCommandType.SHOOT:
                         break;
                     case InputCommandType.DASH:
+                        if (controller.stateData.CanDoubleJump && controller.stateData.IsDashUsed == false) {
+                            return controller.AllStates.DashingState;
+                        }
                         break;
                     default:
                         return null;

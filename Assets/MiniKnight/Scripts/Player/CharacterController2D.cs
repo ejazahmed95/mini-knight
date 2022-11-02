@@ -1,4 +1,5 @@
-﻿using MiniKnight.Debug;
+﻿using System;
+using MiniKnight.Debug;
 using RangerRPG.Core;
 using RangerRPG.Utility;
 using UnityEngine;
@@ -25,17 +26,30 @@ namespace MiniKnight.Player {
 
             input = DI.Get<CharacterInputHandler>();
             _debugger = DI.Get<UIDebugger>();
-            
+
             AllStates = new CharacterStates {
                 IdleState = new IdleState(this),
                 MovingState = new MovingState(this),
                 JumpingState = new JumpingState(this),
-                FallingState = new FallingState(this)
+                FallingState = new FallingState(this),
+                DashingState = new DashingState(this),
+                WallGrabState = new WallGrabState(this),
+                AttackingState = new AttackingState(this),
             };
             currentState = AllStates.IdleState;
             currentState.BeginState(out _);
             
             input.inputEvent.AddListener(HandleInput);
+
+            if (stateData.CanDash) {
+                input.EnableAction(input.DashAction);
+            }
+        }
+
+        public void DealMeleeDamage() {
+            if (currentState is AttackingState attackingState) {
+                attackingState.DealDamage();
+            }
         }
 
         void HandleInput(InputCommandData data) {
@@ -82,8 +96,32 @@ namespace MiniKnight.Player {
             public MovingState MovingState;
             public JumpingState JumpingState;
             public FallingState FallingState;
+            public DashingState DashingState;
+            public WallGrabState WallGrabState;
+            public AttackingState AttackingState;
         }
-        
-        
+
+        public enum PlayerSkill {
+            DOUBLE_JUMP,
+            WALL_CLIMB,
+            DASHING,
+        }
+
+        public void UnlockSkill(PlayerSkill skill) {
+            switch (skill) {
+                case PlayerSkill.DOUBLE_JUMP:
+                    stateData.CanDoubleJump = true;
+                    break;
+                case PlayerSkill.WALL_CLIMB:
+                    stateData.CanWallGrab = true;
+                    break;
+                case PlayerSkill.DASHING:
+                    stateData.CanDash = true;
+                    input.EnableAction(input.DashAction);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

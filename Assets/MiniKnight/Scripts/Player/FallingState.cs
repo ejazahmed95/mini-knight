@@ -28,6 +28,9 @@ namespace MiniKnight.Player {
                     case InputCommandType.SHOOT:
                         break;
                     case InputCommandType.DASH:
+                        if (controller.stateData.CanDoubleJump && controller.stateData.IsDashUsed == false) {
+                            return controller.AllStates.DashingState;
+                        }
                         break;
                     default:
                         return null;
@@ -46,6 +49,11 @@ namespace MiniKnight.Player {
                     controller._animator.SetBool(IsJumping, false);
                     return controller.AllStates.IdleState;
                 }
+                
+                if (data.CanWallGrab && data.IsWallSliding) {
+                    return controller.AllStates.WallGrabState;
+                }
+                
                 MoveCharacterHorizontal();
                 return null;
 

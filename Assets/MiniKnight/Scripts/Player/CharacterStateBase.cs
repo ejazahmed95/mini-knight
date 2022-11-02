@@ -65,10 +65,12 @@ namespace MiniKnight.Player {
             protected void UpdateChecks() {
                 ref var data = ref controller.stateData;
                 data.IsGrounded = false;
+                data.IsWallSliding = false;
                 Collider2D[] colliders = Physics2D.OverlapCircleAll(data.GroundCheck.position, data.GroundedRadius, data.WhatIsGround);
                 foreach (var collider in colliders) {
                     if (collider.gameObject != controller.gameObject) {
                         data.IsDoubleJumping = false;
+                        data.IsDashUsed = false;
                         data.IsGrounded = true;
                         //Log.Info($"Ground Collision with {collider.gameObject.name}; Position = {data.GroundCheck.position}; Radius = {data.GroundedRadius}");
                         return;
@@ -84,16 +86,29 @@ namespace MiniKnight.Player {
                     //         limitVelOnWallJump = false;
                     // }
                 }
+                
+                Collider2D[] collidersWall = Physics2D.OverlapCircleAll(data.WallCheck.position, data.GroundedRadius, data.WhatIsGround);
+                foreach (var collider in collidersWall) {
+                    if (collider.gameObject != controller.gameObject) {
+                        data.IsDoubleJumping = false;
+                        data.IsDashUsed = false;
+                        data.IsGrounded = false;
+                        data.IsWallSliding = true;
+                        //Log.Info($"Ground Collision with {collider.gameObject.name}; Position = {data.GroundCheck.position}; Radius = {data.GroundedRadius}");
+                        return;
+                        //return;
+                    }
+                }
                 //Log.Info("In Air!!!");
             }
 
-            private void Flip() {
+            protected void Flip() {
                 controller.stateData.IsFacingLeft = !controller.stateData.IsFacingLeft;
 
                 // Multiply the player's x local scale by -1.
-                Vector3 theScale = controller.transform.localScale;
-                theScale.x *= -1;
-                controller.transform.localScale = theScale;
+                Vector3 newScale = controller.transform.localScale;
+                newScale.x *= -1;
+                controller.transform.localScale = newScale;
             }
 
             #endregion

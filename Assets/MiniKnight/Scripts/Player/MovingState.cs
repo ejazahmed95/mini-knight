@@ -50,7 +50,7 @@ namespace MiniKnight.Player {
                     case InputCommandType.JUMP:
                         return controller.AllStates.JumpingState;
                     case InputCommandType.ATTACK:
-                        break;
+                        return controller.AllStates.AttackingState;
                     case InputCommandType.SHOOT:
                         break;
                     case InputCommandType.DASH:

@@ -10,13 +10,15 @@ namespace MiniKnight.Player {
         public LayerMask WhatIsGround;
         public bool AirControl;
         public float GroundedRadius;
-        public bool IsGrounded;
+        public float DashForce;
+        public float DashDuration;
+        public float Damage;
 
         [Header("Skills")]
         public bool CanDoubleJump;
         public bool CanWallGrab;
         public bool CanDash;
-        
+
         [Header("Animations")]
         public ParticleSystem JumpUpParticles;
         public ParticleSystem JumpDownParticles; 
@@ -27,10 +29,14 @@ namespace MiniKnight.Player {
         public bool IsFacingLeft;
         public bool IsDoubleJumping;
         public bool InAir;
+        public bool IsGrounded;
+        public bool IsWallSliding;
+        public bool IsDashUsed;
         public Vector2 velocity;
 
         [Header("Transform Checks")][Space]
         public Transform GroundCheck;
         public Transform WallCheck;
+        public Transform AttackCheck;
     }
 }
