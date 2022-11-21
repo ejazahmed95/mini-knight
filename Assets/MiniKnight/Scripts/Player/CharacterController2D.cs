@@ -1,13 +1,17 @@
 ﻿using System;
 using MiniKnight.Debug;
+using MiniKnight.StatSystem;
+using Othello.Scripts;
 using RangerRPG.Core;
 using RangerRPG.Utility;
 using UnityEngine;
+using UnityEngine.AdaptivePerformance.VisualScripting;
 
 namespace MiniKnight.Player {
     public partial class CharacterController2D : MonoBehaviour {
 
         [SerializeField] private PlayerStateData stateData;
+        public CoinObjectPool coinObjectPool;
 
         private Rigidbody2D _rigidbody;
         
@@ -70,6 +74,15 @@ namespace MiniKnight.Player {
             var state = currentState.Update(Time.deltaTime);
             if (state != null) {
                 GoToState(state);
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D col) {
+            if (col.gameObject.GetComponent<PlayerPickup>()) {
+                Log.Info("Item Picked!");
+                var pickup = col.gameObject.GetComponent<PlayerPickup>();
+                pickup.PickedItem();
+                coinObjectPool.DisableCoin(pickup);
             }
         }
 

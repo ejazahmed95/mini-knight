@@ -242,7 +242,11 @@ MonoBehaviour:
   baseHealth: 20
   currentHealth: 0
   destroyOnZeroHealth: 0
+  specialDamageOnly: 0
   OnZeroHealth:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHit:
     m_PersistentCalls:
       m_Calls: []
   healthBarImage: {fileID: 0}
