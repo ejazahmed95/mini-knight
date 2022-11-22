@@ -1,4 +1,4 @@
-﻿using MiniKnight.Scripts;
+﻿using MiniKnight.Debug;
 using MiniKnight.StatSystem;
 using Othello.Scripts;
 using RangerRPG.Core;

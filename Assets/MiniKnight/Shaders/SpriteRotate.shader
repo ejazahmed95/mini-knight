@@ -1,5 +1,3 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
 Shader "Custom/SpriteRotate"
 {
     Properties
@@ -36,17 +34,19 @@ Shader "Custom/SpriteRotate"
             {
                 float    s = sin(_Rotation);
                 float    c = cos(_Rotation);
+
+                // Rotation Matrix [[Cos, -Sin], [Sin, Cos]] 
                 float2x2 rotationMatrix = float2x2(c, -s, s, c);
 
+                // Vertex to Fragment Position
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
 
-                float offsetX = .5; //_MainTex_ST.z +_MainTex_ST.x / 2;
-                float offsetY = .5; //_MainTex_ST.w +_MainTex_ST.y / 2;
+                float offsetX = .5; 
+                float offsetY = .5;
 
-                float x = v.texcoord.x - offsetX; //* _MainTex_ST.x + _MainTex_ST.z - offsetX;
-                float y = v.texcoord.y - offsetY; //* _MainTex_ST.y + _MainTex_ST.w - offsetY;
-
+                float x = v.texcoord.x - offsetX;
+                float y = v.texcoord.y - offsetY; 
                 o.uv = mul(float2(x, y), rotationMatrix) + float2(offsetX, offsetY);
 
                 return o;
