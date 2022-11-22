@@ -5,9 +5,10 @@ using UnityEngine.Events;
 
 namespace MiniKnight.Area {
     public class AreaManager : MonoBehaviour {
-        public List<AreaTask> tasks;
+        public List<AreaTask> tasks = new();
+        public List<AreaUnlockBase> unlockBehaviours = new(); // These behaviours are executed when the area is cleared.
+        
         public UnityEvent<AreaManager> areaClearedEvent = new();
-
         private int _tasksCompleted = 0;
         
         private void Awake() {
@@ -17,7 +18,12 @@ namespace MiniKnight.Area {
         }
 
         public void TaskCompleted(AreaTask task) {
-            CheckAllTasksCompleted();
+            if (CheckAllTasksCompleted()) {
+                foreach (var area in unlockBehaviours) {
+                    area.Unlock();
+                }
+            }
+            areaClearedEvent.Invoke(this);
         }
         
         private bool CheckAllTasksCompleted() {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using MiniKnight.Debug;
 using MiniKnight.Player;
+using MiniKnight.Scripts;
 using RangerRPG.Core;
 using UnityEngine;
 

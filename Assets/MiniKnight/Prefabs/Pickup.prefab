@@ -101,6 +101,7 @@ MonoBehaviour:
   onItemPicked:
     m_PersistentCalls:
       m_Calls: []
+  clip: {fileID: 8300000, guid: 5ab8fc664ca4d604f820e255005a664a, type: 3}
 --- !u!58 &8818524894796475952
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -1,11 +1,9 @@
-﻿using System;
-using MiniKnight.Debug;
+﻿using MiniKnight.Scripts;
 using MiniKnight.StatSystem;
 using Othello.Scripts;
 using RangerRPG.Core;
 using RangerRPG.Utility;
 using UnityEngine;
-using UnityEngine.AdaptivePerformance.VisualScripting;
 
 namespace MiniKnight.Player {
     public partial class CharacterController2D : MonoBehaviour {
