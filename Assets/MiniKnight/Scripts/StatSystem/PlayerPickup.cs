@@ -1,4 +1,5 @@
-﻿using RangerRPG.Core;
+﻿using System;
+using RangerRPG.Core;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,6 +21,10 @@ namespace MiniKnight.StatSystem {
         public void Init() {
             _picked = false;
             onItemPicked = new UnityEvent();
+        }
+
+        private void OnDestroy() {
+            //Log.Err("Coin getting destroyed! Use Object Pool");
         }
     }
 }

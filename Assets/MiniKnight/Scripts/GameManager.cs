@@ -42,6 +42,7 @@ namespace MiniKnight {
         public void AcquireDashAbility() {
             var skill = Player.CharacterController2D.PlayerSkill.DASHING;
             playerRef.UnlockSkill(skill);
+            CharacterInputHandler.Instance.DashAction.action.Enable();
             if (GatesToOpenOnSkill.ContainsKey(skill)) {
                 foreach (var gameObj in GatesToOpenOnSkill[skill]) {
                     Destroy(gameObj);

@@ -17,6 +17,7 @@ namespace Othello.Scripts {
             if (_freeCoins.Count > 0) {
                 PlayerPickup coin = _freeCoins[0];
                 _freeCoins.RemoveAt(0);
+                coin.transform.position = newTransform.position;
                 coin.Init();
                 coin.gameObject.SetActive(true);
                 return coin;

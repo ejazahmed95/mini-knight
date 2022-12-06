@@ -18,20 +18,26 @@ namespace MiniKnight.StatSystem {
         public Image healthBarImage;
 
         private void Start() {
-            currentHealth = baseHealth;
+            if(currentHealth <= 0) currentHealth = baseHealth;
+            if (healthBarImage != null) {
+                healthBarImage.fillAmount = GetHealthPercentage();
+            }
         }
         
         public void ApplyDamage(float damage, DamageType type = DamageType.NORMAL) {
-            if (invincible) return;
+            if (invincible || currentHealth <= 0) return;
             if (specialDamageOnly && type != DamageType.SPECIAL) {
                 return;
             }
             
             currentHealth -= damage;
             OnHit.Invoke();
-            if (currentHealth < 0) {
+            if (currentHealth <= 0) {
                 currentHealth = 0;
                 OnZeroHealth.Invoke();
+                if (destroyOnZeroHealth) {
+                    Destroy(gameObject, 1f);
+                }
             }
             
             if (healthBarImage != null) {
@@ -46,6 +52,16 @@ namespace MiniKnight.StatSystem {
         public enum DamageType {
             NORMAL,
             SPECIAL
+        }
+        
+        public void Heal(float healAmount) {
+            if (currentHealth <= 0) return;
+            currentHealth += healAmount;
+            if (currentHealth > baseHealth) currentHealth = baseHealth;
+            
+            if (healthBarImage != null) {
+                healthBarImage.fillAmount = GetHealthPercentage();
+            }
         }
     }
 }

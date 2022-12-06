@@ -1,4 +1,5 @@
 ﻿using System;
+using RangerRPG.Core;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,11 +12,12 @@ namespace MiniKnight.Area {
         
         public void Completed() {
             isCompleted = true; 
+            Log.Info($"Task Completed! {taskDescription}");
             onComplete.Invoke(this);
         }
         
-        public void AddListener(Action<AreaTask> taskCompleted) {
-            taskCompleted.Invoke(this);
+        public void AddListener(UnityAction<AreaTask> taskCompleted) {
+            onComplete.AddListener(taskCompleted);
         }
 
         public bool IsCompleted() {

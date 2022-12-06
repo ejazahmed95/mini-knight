@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4921565249646226}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4850398340925330}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: FallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,15 +72,15 @@ GameObject:
   m_Component:
   - component: {fileID: 4567782686879236}
   - component: {fileID: 212746456417141244}
-  - component: {fileID: 70096548459731550}
+  - component: {fileID: 1762609624}
   - component: {fileID: 50249040782121326}
-  - component: {fileID: 95077898361601450}
   - component: {fileID: 3919870176868257300}
   - component: {fileID: -1051410730731992979}
   - component: {fileID: 673376430}
   - component: {fileID: 7869987371175260993}
-  m_Layer: 9
-  m_Name: PatrolEnemy
+  - component: {fileID: 100349535288699336}
+  m_Layer: 7
+  m_Name: Boss1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,7 +124,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f7ae16364b516854e9d432c26bfc2892, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -145,8 +145,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 96be36fcbc69e8944b5d9f089bc07112, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 131f4d33323839d4aa0d225a0c9ca000, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -156,8 +156,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &70096548459731550
-CapsuleCollider2D:
+--- !u!58 &1762609624
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -169,9 +169,9 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.15}
-  m_Size: {x: 0.46, y: 1.72}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.4
 --- !u!50 &50249040782121326
 Rigidbody2D:
   serializedVersion: 4
@@ -193,26 +193,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!95 &95077898361601450
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458107173046890}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6f0a2ae30419df541a1d62e19f836419, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &3919870176868257300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,9 +212,10 @@ MonoBehaviour:
     m_Bits: 1
   rb: {fileID: 50249040782121326}
   facingRight: 1
-  speed: 3
+  speed: 4
   isInvincible: 0
   isHitted: 0
+  damage: 10
 --- !u!114 &-1051410730731992979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,16 +228,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d51cc1a6bae945bfb736dca1c4ec3430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 20
+  baseHealth: 100
   currentHealth: 0
   destroyOnZeroHealth: 0
   specialDamageOnly: 0
+  invincible: 0
   OnZeroHealth:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3919870176868257300}
         m_TargetAssemblyTypeName: MiniKnight.Enemies.EnemyBase, Assembly-CSharp
         m_MethodName: OnDead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 100349535288699336}
+        m_TargetAssemblyTypeName: MiniKnight.SimpleSpriteAnimation, Assembly-CSharp
+        m_MethodName: StopAnimation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -307,9 +301,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinRange: {x: 0, y: 2}
-  maxCoins: 2
+  maxCoins: 20
   _objectPool: {fileID: 0}
   throwTransform: {fileID: 6939990326422661218}
+  maxVerticalVel: 5
 --- !u!114 &7869987371175260993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,13 +312,58 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458107173046890}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b30ab8d5e6d543cfa6562185b6be977f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  halfDistance: 3
+  halfDistance: 5
   patrolPoints: []
+--- !u!114 &100349535288699336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458107173046890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d287e4d6b84971abf40e40230bab79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 131f4d33323839d4aa0d225a0c9ca000, type: 3}
+  - {fileID: 21300000, guid: b2c092d22ac1851468fd8f7fa025bb2c, type: 3}
+  - {fileID: 21300000, guid: 0f5dbcaec5004ad48a88c48088bb9503, type: 3}
+  - {fileID: 21300000, guid: 68231c545c36c7e4ebc996efe187e665, type: 3}
+  - {fileID: 21300000, guid: 77eef1515c458a34fa817676deb29a10, type: 3}
+  - {fileID: 21300000, guid: b0d890ad4df4edb4b8cb726b016c04ee, type: 3}
+  - {fileID: 21300000, guid: 82a955735742ce84eb7d48860885cfc5, type: 3}
+  - {fileID: 21300000, guid: b2e38aa9e039a8347aea616b6440a55a, type: 3}
+  - {fileID: 21300000, guid: 0f3fdbc149ffbd4408bfe95f3a6d4d32, type: 3}
+  - {fileID: 21300000, guid: ca8dce8f87e94884a83ac2579ed2caae, type: 3}
+  - {fileID: 21300000, guid: 6c675a7641996374caf7085710cfd1df, type: 3}
+  - {fileID: 21300000, guid: 429da2625323a7649879972f0b731946, type: 3}
+  - {fileID: 21300000, guid: 494e982f9651dfa49ad3303ff5f6d4a6, type: 3}
+  - {fileID: 21300000, guid: aaa59712d51e84d4b85b3de263a17e14, type: 3}
+  - {fileID: 21300000, guid: b7234721e57589144acb7db35b0bf576, type: 3}
+  - {fileID: 21300000, guid: 6ef3c559fc268c9499a4409f3d42fd28, type: 3}
+  - {fileID: 21300000, guid: 801e86a1adb811542aff82b2b44e0f14, type: 3}
+  - {fileID: 21300000, guid: 6e1185603ac5cc04eb0feebdd265a07b, type: 3}
+  - {fileID: 21300000, guid: ef5974ea1a46e0148a85249ede2eafbf, type: 3}
+  - {fileID: 21300000, guid: f047979f0ef25b748be1557e2b77e82e, type: 3}
+  - {fileID: 21300000, guid: 2bc2e303371b0824faa8ab63559553b8, type: 3}
+  - {fileID: 21300000, guid: d61761fe98c2f234380f6d9777055e37, type: 3}
+  - {fileID: 21300000, guid: 32e3fdddd8b62e24ebbb39be0c7db70b, type: 3}
+  - {fileID: 21300000, guid: 286068707d5bdca47b6a117c2eda0ef7, type: 3}
+  - {fileID: 21300000, guid: 07b0ae2a6eed0984caf14120cee560d2, type: 3}
+  - {fileID: 21300000, guid: 5a0f4a8c72f57ae4c8bda8f3c37501c0, type: 3}
+  - {fileID: 21300000, guid: 7d8498845e4777148ab2b7f4aaee4e34, type: 3}
+  - {fileID: 21300000, guid: 3ac12edef346db2479a905f48d92d9b7, type: 3}
+  - {fileID: 21300000, guid: 15ee6a5739647104f8d9d0ad4cb6e9c4, type: 3}
+  - {fileID: 21300000, guid: 6ac8cb3c32dc9a448bd48fa87de1f068, type: 3}
+  fps: 10
+  disabledColor: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 0}
 --- !u!1 &849104304069324097
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6939990326422661218}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: CoinThrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

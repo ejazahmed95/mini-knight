@@ -45,6 +45,10 @@ GameObject:
   - component: {fileID: 7810945795415160919}
   - component: {fileID: 7793600536230620515}
   - component: {fileID: 7923977777372806447}
+  - component: {fileID: 212971026318327972}
+  - component: {fileID: 212971026318327973}
+  - component: {fileID: 212971026318327974}
+  - component: {fileID: 212971026318327980}
   m_Layer: 1
   m_Name: Player
   m_TagString: Player
@@ -92,7 +96,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 50230edb79f09c84098a5afbca745017, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -134,7 +138,7 @@ Animator:
   m_GameObject: {fileID: 7842644868355728423}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a3c27b3edc7c7dd49aa745bbedc2eed1, type: 2}
+  m_Controller: {fileID: 9100000, guid: f2035237b9463464e82ece9e438ed080, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -277,6 +281,134 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &212971026318327972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842644868355728423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b3b8f326fc20ae14cbcb0023648d2f6b, type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &212971026318327973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842644868355728423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35451a83cb8d4208abb10d3e78a4662d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveAction: {fileID: 8644778440191397825, guid: b3b8f326fc20ae14cbcb0023648d2f6b, type: 3}
+  JumpAction: {fileID: -3947306346234343206, guid: b3b8f326fc20ae14cbcb0023648d2f6b, type: 3}
+  AttackAction: {fileID: -4326906794433544953, guid: b3b8f326fc20ae14cbcb0023648d2f6b, type: 3}
+  ShootAction: {fileID: -8594644746547250036, guid: b3b8f326fc20ae14cbcb0023648d2f6b, type: 3}
+  DashAction: {fileID: 709379016823198351, guid: b3b8f326fc20ae14cbcb0023648d2f6b, type: 3}
+  inputEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &212971026318327974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842644868355728423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 452f0ebebca34290939a053e473c0cef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateData:
+    JumpForce: 900
+    MoveSpeed: 5
+    MovementSmoothing: 0.05
+    WhatIsGround:
+      serializedVersion: 2
+      m_Bits: 1
+    AirControl: 1
+    GroundedRadius: 0.05
+    DashForce: 20
+    DashDuration: 0.2
+    Damage: 10
+    CanDoubleJump: 1
+    CanWallGrab: 0
+    CanDash: 0
+    JumpUpParticles: {fileID: 7931908222323660695}
+    JumpDownParticles: {fileID: 7930998286198465853}
+    ActiveStateText: 
+    Movement: 0
+    IsFacingLeft: 0
+    IsDoubleJumping: 0
+    InAir: 0
+    IsGrounded: 1
+    IsWallSliding: 0
+    IsDashUsed: 0
+    velocity: {x: 0, y: 0}
+    GroundCheck: {fileID: 7844549472252242095}
+    WallCheck: {fileID: 7837380910643755795}
+    AttackCheck: {fileID: 7844646470628894059}
+  coinObjectPool: {fileID: 0}
+--- !u!114 &212971026318327980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842644868355728423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51cc1a6bae945bfb736dca1c4ec3430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseHealth: 100
+  currentHealth: 0
+  destroyOnZeroHealth: 0
+  specialDamageOnly: 0
+  invincible: 0
+  OnZeroHealth:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 212971026318327974}
+        m_TargetAssemblyTypeName: MiniKnight.Player.CharacterController2D, Assembly-CSharp
+        m_MethodName: OnHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  healthBarImage: {fileID: 0}
 --- !u!1 &7842664274098694605
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7842664274098694605}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.35, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0.35, y: -0.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5082,7 +5214,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9965,7 +10096,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

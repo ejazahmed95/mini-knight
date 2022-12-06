@@ -56,14 +56,18 @@ namespace MiniKnight.Enemies {
         }
 
         public void OnDead() {
-            _animator.SetBool(IsDead, true);
+            if(_animator) _animator.SetBool(IsDead, true);
             isDead = true;
+            var sprite = GetComponent<SpriteRenderer>();
+            var color = sprite.color;
+            color.a = 0.3f;
+            sprite.color = color;
             StartCoroutine(DestroyEnemy());
         }
 
         public void OnDamage() {
             if (isDead) return;
-            _animator.SetBool(Hit, true);
+            if(_animator) _animator.SetBool(Hit, true);
             rb.velocity = Vector2.zero;
             float direction = facingRight ? 1 : -1;
             rb.AddForce(new Vector2(direction * 500f, 100f));
@@ -103,11 +107,8 @@ namespace MiniKnight.Enemies {
         }
 
         IEnumerator DestroyEnemy() {
-            CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();
-            var sprite = GetComponent<SpriteRenderer>();
-            var color = sprite.color;
-            color.a = 0.3f;
-            sprite.color = color;
+            //CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();
+            
             // capsule.size = new Vector2(1f, 0.25f);
             // capsule.offset = new Vector2(0f, -0.8f);
             // capsule.direction = CapsuleDirection2D.Horizontal;

@@ -1,6 +1,4 @@
-﻿using System;
-using MiniKnight.StatSystem;
-using Othello.Scripts;
+﻿using Othello.Scripts;
 using RangerRPG.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -13,6 +11,7 @@ namespace MiniKnight.Scripts {
         public CoinObjectPool _objectPool;
         public Transform throwTransform;
         private int coinsDropped = 0;
+        public float maxVerticalVel = 5;
 
         private void Start() {
             _objectPool = DI.Get<CoinObjectPool>();
@@ -22,15 +21,15 @@ namespace MiniKnight.Scripts {
             DropOneCoin();
         }
 
-        private void OnDestroy() {
+        public void DropRemainingCoins() {
             while (coinsDropped++ < maxCoins) {
                 DropOneCoin();
             }
         }
-        
+
         private void DropOneCoin() {
             var coin = _objectPool.GetNewCoin(throwTransform);
-            coin.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(0f, 3f));
+            coin.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-2.0f, 2.0f), Random.Range(0f, maxVerticalVel));
             
             coinsDropped++;
         }

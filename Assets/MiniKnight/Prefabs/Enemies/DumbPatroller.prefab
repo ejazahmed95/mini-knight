@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4921565249646226}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4850398340925330}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: FallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,8 +79,8 @@ GameObject:
   - component: {fileID: -1051410730731992979}
   - component: {fileID: 673376430}
   - component: {fileID: 7869987371175260993}
-  m_Layer: 9
-  m_Name: PatrolEnemy 1
+  m_Layer: 7
+  m_Name: DumbPatroller
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,6 +235,7 @@ MonoBehaviour:
   speed: 3
   isInvincible: 0
   isHitted: 0
+  damage: 10
 --- !u!114 &-1051410730731992979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,10 +248,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d51cc1a6bae945bfb736dca1c4ec3430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 20
+  baseHealth: 30
   currentHealth: 0
   destroyOnZeroHealth: 0
   specialDamageOnly: 0
+  invincible: 0
   OnZeroHealth:
     m_PersistentCalls:
       m_Calls:
@@ -310,6 +312,7 @@ MonoBehaviour:
   maxCoins: 2
   _objectPool: {fileID: 0}
   throwTransform: {fileID: 6939990326422661218}
+  maxVerticalVel: 5
 --- !u!114 &7869987371175260993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,7 +336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6939990326422661218}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: CoinThrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
