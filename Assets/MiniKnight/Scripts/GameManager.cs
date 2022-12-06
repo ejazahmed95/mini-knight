@@ -13,7 +13,12 @@ namespace MiniKnight {
         public GenericDictionary<Player.CharacterController2D.PlayerSkill, List<GameObject>> GatesToOpenOnSkill = new();
 
         public int playerCoins = 0;
-        
+
+        public override void Awake() {
+            base.Awake();
+            //Random.InitState((int)Time.time);
+        }
+
         public void AcquireDoubleJump() { // Acquire Double Jump
             var skill = Player.CharacterController2D.PlayerSkill.DOUBLE_JUMP;
             playerRef.UnlockSkill(skill);

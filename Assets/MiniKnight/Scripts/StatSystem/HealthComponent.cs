@@ -10,6 +10,7 @@ namespace MiniKnight.StatSystem {
         public bool destroyOnZeroHealth;
 
         public bool specialDamageOnly = false;
+        public bool invincible = false;
         
         public UnityEvent OnZeroHealth = new();
         public UnityEvent OnHit = new();
@@ -21,6 +22,7 @@ namespace MiniKnight.StatSystem {
         }
         
         public void ApplyDamage(float damage, DamageType type = DamageType.NORMAL) {
+            if (invincible) return;
             if (specialDamageOnly && type != DamageType.SPECIAL) {
                 return;
             }

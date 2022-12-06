@@ -1,4 +1,5 @@
-﻿using MiniKnight.Debug;
+﻿using System.Collections;
+using MiniKnight.Debug;
 using MiniKnight.StatSystem;
 using Othello.Scripts;
 using RangerRPG.Core;
@@ -18,10 +19,12 @@ namespace MiniKnight.Player {
         private CharacterInputHandler input;
         private CharacterStates AllStates;
         private UIDebugger _debugger;
+        private HealthComponent _health;
 
         private void Awake() {
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
+            _health = GetComponent<HealthComponent>();
         }
 
         private void Start() {
@@ -133,6 +136,16 @@ namespace MiniKnight.Player {
                 default:
                     break;
             }
+        }
+
+        public void OnHit() {
+            _health.invincible = true;
+            StartCoroutine(InvincibleRoutine());
+        }
+        
+        private IEnumerator InvincibleRoutine() {
+            yield return new WaitForSeconds(2f);
+            _health.invincible = false;
         }
     }
 }
